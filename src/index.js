@@ -4,13 +4,24 @@ import "./index.css";
 
 //const e = React.createElement;
 
-
-
 class Square extends React.Component {
+  //delete square's constructor, since now the board keeps the state of the game
+  // //a class can "remember" things using its state field
+  // constructor(props){
+  //   super(props);//in js you gotta call super everytime you define a constructor of any subclass
+  //   this.state = {
+  //     value: null,
+  //   };
+  // }
+
   render() {
     //pass a function as the on click prop, if you just said alert, an alert would fire every time the page renders...
     return ( 
-      <button className="square" onClick={()=>alert('anan')}> 
+      //by calling setState in an onClick handler, we tell react to re render whenever the button is clicked
+      <button 
+        className="square" 
+        onClick={()=>this.props.onClick({value: 'X'})} //when you call setState within a component, react will update child components too
+      > 
         {this.props.value}
       </button>
     ); //we are catching the prop entered in the calling component, int he called component
@@ -18,8 +29,22 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+
+  }
+
   renderSquare(i) {
-    return <Square value={i} />; //passing prop (a value) to the square component
+    return( 
+      <Square 
+        value={this.state.squares[i]} 
+        onClick={() => this.handleClick(i)}
+      />
+    ); //passing prop (a value) to the square component
   }
 
   render() {
