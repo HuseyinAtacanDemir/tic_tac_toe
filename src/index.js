@@ -33,6 +33,7 @@ class Board extends React.Component {
       console.log("entered");
       return (
         <Square
+          key={i*10}
           value={this.props.squares[i]}
           style={winStyle}
           onClick={() => this.props.onClick(i)}
@@ -41,6 +42,7 @@ class Board extends React.Component {
     }else{
       return (
         <Square
+          key={i*10}
           value={this.props.squares[i]}
           onClick={() => this.props.onClick(i)}
         />
@@ -55,7 +57,7 @@ class Board extends React.Component {
       {
         [0,1,2].map((n) => {
           return(
-            <div className="board-row">
+            <div key={n} className="board-row">
             {
               [0,1,2].map((k) => {
                 return this.renderSquare((n*3) + k);
@@ -89,25 +91,6 @@ class Board extends React.Component {
   }
 }
 
-/*
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-
-
-*/
 
 class Game extends React.Component {
   constructor(props) {
