@@ -1,24 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+
+//const e = React.createElement;
+
+
 
 class Square extends React.Component {
   render() {
-    return (
-      <button className="square">
-        {/* TODO */}
+    //pass a function as the on click prop, if you just said alert, an alert would fire every time the page renders...
+    return ( 
+      <button className="square" onClick={()=>alert('anan')}> 
+        {this.props.value}
       </button>
-    );
+    ); //we are catching the prop entered in the calling component, int he called component
   }
 }
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i} />; //passing prop (a value) to the square component
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = "Next player: X";
 
     return (
       <div>
@@ -55,14 +60,23 @@ class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
       </div>
+
+      // trying the same with React.createElement: aka react with no jsx
+      // e is defined to be React.createElement above...
+
+      // e('div', {className: 'game'},
+      //   e('div', {className: 'game-board'},
+      //     e(Board, null, null)
+      //   ),
+      //   e('div', {className: 'game-info'},
+      //     e('div', null, null),
+      //     e('ol', null, null)
+      //   )
+      // )
     );
   }
 }
 
 // ========================================
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
-
+ReactDOM.render(<Game />, document.getElementById("root"));
